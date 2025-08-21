@@ -13,6 +13,56 @@ import {
   Menu, X
 } from "lucide-react";
 
+const products = [
+  {
+    id: 1,
+    name: "Dhenu Gold",
+    subtitle: "High-strength, 5000IU",
+    description:`Dhenu Gold is a scientifically formulated blend of cow urine powder, natural plants and spirulina. Dhenu Gold improves soil structure and increases water retention and germination capacity. It increases the size, colour and weight of fruits by developing flowers, which increases crop production capacity. It increases the efficiency of fertilisers by dissolving micronutrients present in the soil and developing herbs. Method of use: Use 1 kg of Dhenu Gold per acre with 200 litres of water or mixed with organic seeds or DAP or urea, etc., use in combination with chemical, the requirement of chemicals is reduced by 25 to 30 per cent.
+Useful for all types of crops like cumin, cotton, groundnut, paddy, Diwali, mango, papaya, pomegranate, sapota, chilli, vegetables, horticultural crops, spices, medicinal plants and flowers.`,
+    price: 1499,
+    originalPrice: 1799,
+    image: "/v1.png",
+    decoration: "/oi.png",
+    layout: "left", // image on left
+  },
+  {
+    id: 2,
+    name: "Dhan Rakshak",
+    subtitle: "High-strength, 4000IU",
+    description:
+      `Dhan Rakshak is a scientifically formulated herbal plant pesticide blend with natural plants and cow dung. Dhanarakshak protects plants and crops from insects and animals. It controls all types of sap-sucking insects at the initial stage. Dhanarakshak is an ideal pesticide for crop protection through the organic method.
+Main point: Spray 50-60 ml of Dhan Rakshak in 15 litres of water. Use it 3 to 4 times at an interval of 5 to 7 days. 
+Benefits:
+Dhanarakshak spray forms a protective shield on the branches, fruits and flowers of the plant. 
+Its smell keeps insects away and disrupts the life cycle of insects. It helps in the effective control of pests on plants. Reduces the use of chemical pesticides.
+Useful for all types of crops, vegetables, horticultural crops, spices, medicinal plants and flowers like cumin, cotton, groundnut, paddy, diwali, mango, papaya, pomegranate, sapota, chilli, etc`,
+    price: 1299,
+    originalPrice: 1599,
+    image: "/v2.png",
+    decoration: "/oi.png",
+    layout: "right", // image on right
+  },
+  {
+    id: 3,
+    name: "Dhan Vruddhi",
+    subtitle: "High-strength, 4500IU",
+    description:
+      `Dhanvruthi is made up of various organic elements based on ancient knowledge. It is a scientifically prepared organic water flow mixture prepared by fermenting seaweed (Samudhi Ghas) and cow urine. It is beneficial in soil improvement and plant nutrition. 
+
+Usage: Use 80 to 100 ml of Dhanvruthi water pump 3 to 4 times to spray the crop. Use Dhanvruthi mixed with 2 litres of water per acre to water through sprinkler.
+Benefits:
+Dhanvruthi provides essential nutrition to the crop. It increases the disease resistance of crops and reduces yellowing. Due to the increase in the number of green cells, food reaches the plant faster. 
+Makes the crop strong and abundant.
+It is useful in all crops like cotton, groundnut, paddy, wheat, vegetable crops, spice crops and horticultural crops Banana, watermelon, mango, pomegranate, melon, etc.`,
+    price: 1799,
+    originalPrice: 2099,
+    image: "/v3.png",
+    decoration: "/oi.png",
+    layout: "left", // image on left
+  },
+];
+
 const VedaPage = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,6 +70,10 @@ const VedaPage = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const openModal = (product) => setSelectedProduct(product);
+  const closeModal = () => setSelectedProduct(null);
 
   useEffect(() => {
     const raf = requestAnimationFrame(() => setIsLoaded(true));
@@ -407,9 +461,9 @@ const VedaPage = () => {
           </div>
 
           {/* Product 1 - Dhenu Gold */}
-          <div className="relative max-w-3xl mx-auto mb-4">
+          {/* <div className="relative max-w-3xl mx-auto mb-4">
             <div className="flex flex-col md:flex-row items-center gap-3 md:gap-5">
-              {/* Image with decorative leaf behind */}
+            
               <div className="relative w-44 md:w-52 flex-shrink-0">
                 <img
                   src="/oi.png"
@@ -422,7 +476,7 @@ const VedaPage = () => {
                   className="relative z-10 w-full h-auto object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,0.12)]"
                 />
               </div>
-              {/* Content */}
+            
               <div className="flex-1 text-center md:text-left">
                 <h3
                   style={{
@@ -434,10 +488,10 @@ const VedaPage = () => {
                       'Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
                   }}
                 >
-                  Dhenu Gold
+                   {products[0].name}
                 </h3>
                 <p className="text-sm text-gray-600 mb-2">
-                  High-strength, 5000IU
+                  {products[0].subtitle}
                 </p>
                 <div className="relative inline-block mx-auto md:mx-0 mb-1">
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 h-[70%] w-1 rounded-full bg-gradient-to-b from-emerald-400 to-emerald-600 hidden sm:block" />
@@ -448,8 +502,7 @@ const VedaPage = () => {
                         'Georgia, "Times New Roman", ui-serif, Charter, serif',
                     }}
                   >
-                    Soil enhancer with Spirulina and cow-based inputs. Improves
-                    soil structure and fertility naturally.
+                   {products[0].description}
                   </div>
                 </div>
                 <div className="mt-2 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-2">
@@ -457,18 +510,18 @@ const VedaPage = () => {
                     className="bg-[#22c55e] hover:bg-[#16a34a] text-white text-sm px-4 py-2 md:px-6 md:py-2.5 w-auto rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                     onClick={() =>
                       addToCart({
-                        name: "Dhenu Gold",
-                        price: 1499,
-                        image: "/v1.png",
+                        name: products[0].name,
+                        price:products[0].price,
+                        image:products[0].image,
                       })
                     }
                   >
                     Add to Cart
                   </button>
                   <div className="text-lg sm:text-xl font-bold text-gray-900">
-                    ₹1,499
+                    ₹{products[0].price}
                     <span className="text-base text-orange-500 line-through ml-2">
-                      ₹1,799
+                      ₹{products[0].originalPrice}
                     </span>
                   </div>
                 </div>
@@ -476,10 +529,10 @@ const VedaPage = () => {
             </div>
           </div>
 
-          {/* Product 2 - Dhan Rakshak */}
+         
           <div className="relative max-w-3xl mx-auto mb-4">
             <div className="flex flex-col md:flex-row-reverse items-center gap-3 md:gap-5">
-              {/* Image with decorative leaf behind */}
+            
               <div className="relative w-44 md:w-52 flex-shrink-0">
                 <img
                   src="/oi.png"
@@ -492,7 +545,7 @@ const VedaPage = () => {
                   className="relative z-10 w-full h-auto object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,0.12)]"
                 />
               </div>
-              {/* Content */}
+             
               <div className="flex-1 text-center md:text-right">
                 <h3
                   style={{
@@ -504,10 +557,10 @@ const VedaPage = () => {
                       'Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
                   }}
                 >
-                  Dhan Rakshak
+                  {products[1].name}
                 </h3>
                 <p className="text-sm text-gray-600 mb-2">
-                  High-strength, 4000IU
+                  {products[1].subtitle}
                 </p>
                 <div className="relative inline-block mx-auto md:mx-0 mb-1">
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 h-[70%] w-1 rounded-full bg-gradient-to-b from-emerald-400 to-emerald-600 hidden sm:block" />
@@ -518,8 +571,7 @@ const VedaPage = () => {
                         'Georgia, "Times New Roman", ui-serif, Charter, serif',
                     }}
                   >
-                    Natural herbal pesticide to defend crops. Protects plants
-                    without harmful chemicals.
+                   {products[1].description}
                   </div>
                 </div>
                 <div className="mt-2 flex flex-col sm:flex-row items-center justify-center md:justify-end gap-2">
@@ -527,18 +579,18 @@ const VedaPage = () => {
                     className="bg-[#22c55e] hover:bg-[#16a34a] text-white text-sm px-4 py-2 md:px-6 md:py-2.5 w-auto rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                     onClick={() =>
                       addToCart({
-                        name: "Dhan Rakshak",
-                        price: 1299,
-                        image: "/v2.png",
+                        name: products[1].name,
+                        price:products[1].price,
+                        image: products[1].image,
                       })
                     }
                   >
                     Add to Cart
                   </button>
                   <div className="text-lg sm:text-xl font-bold text-gray-900">
-                    ₹1,299
+                    ₹{products[1].price}
                     <span className="text-base text-orange-500 line-through ml-2">
-                      ₹1,599
+                      ₹{products[1].originalPrice}
                     </span>
                   </div>
                 </div>
@@ -546,10 +598,11 @@ const VedaPage = () => {
             </div>
           </div>
 
-          {/* Product 3 - Dhan Vruddhi */}
+
+         
           <div className="relative max-w-3xl mx-auto">
             <div className="flex flex-col md:flex-row items-center gap-3 md:gap-5">
-              {/* Image with decorative leaf behind */}
+           
               <div className="relative w-44 md:w-52 flex-shrink-0">
                 <img
                   src="/oi.png"
@@ -562,7 +615,7 @@ const VedaPage = () => {
                   className="relative z-10 w-full h-auto object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,0.12)]"
                 />
               </div>
-              {/* Content */}
+             
               <div className="flex-1 text-center md:text-left">
                 <h3
                   style={{
@@ -574,10 +627,10 @@ const VedaPage = () => {
                       'Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
                   }}
                 >
-                  Dhan Vruddhi
+                  {products[2].name}
                 </h3>
                 <p className="text-sm text-gray-600 mb-2">
-                  High-strength, 4500IU
+                  {products[2].subtitle}
                 </p>
                 <div className="relative inline-block mx-auto md:mx-0 mb-1">
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 h-[70%] w-1 rounded-full bg-gradient-to-b from-emerald-400 to-emerald-600 hidden sm:block" />
@@ -588,8 +641,7 @@ const VedaPage = () => {
                         'Georgia, "Times New Roman", ui-serif, Charter, serif',
                     }}
                   >
-                    Organic nourishment for robust plant growth. Provides
-                    essential nutrients for healthy crops.
+                    {products[2].description}
                   </div>
                 </div>
                 <div className="mt-2 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-2">
@@ -597,27 +649,161 @@ const VedaPage = () => {
                     className="bg-[#22c55e] hover:bg-[#16a34a] text-white text-sm px-4 py-2 md:px-6 md:py-2.5 w-auto rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                     onClick={() =>
                       addToCart({
-                        name: "Dhan Vruddhi",
-                        price: 1799,
-                        image: "/v3.png",
+                        name:products[2].name,
+                        price: products[2].price,
+                        image:  products[2].image,
                       })
                     }
                   >
                     Add to Cart
                   </button>
                   <div className="text-lg sm:text-xl font-bold text-gray-900">
-                    ₹1,799
+                    ₹{products[2].price}
                     <span className="text-base text-orange-500 line-through ml-2">
-                      ₹2,099
+                      ₹{products[2].originalPrice}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>*/}
+            {products.map((product, index) => (
+          <div
+            key={product.id}
+            className="relative max-w-3xl mx-auto mb-8 cursor-pointer"
+            onClick={() => openModal(product)}
+          >
+            <div
+              className={`flex flex-col md:flex-row items-center gap-3 md:gap-5 ${
+                index % 2 === 1 ? "md:flex-row-reverse" : ""
+              }`}
+            >
+              {/* Product Image */}
+              <div className="relative w-44 md:w-52 flex-shrink-0">
+                <img
+                  src="/oi.png"
+                  alt=""
+                  className={`absolute -top-1 ${
+                    index % 2 === 1 ? "-right-1 -rotate-3" : "-left-1 rotate-3"
+                  } w-24 md:w-28 opacity-90 pointer-events-none z-0`}
+                />
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="relative z-10 w-full h-auto object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,0.12)]"
+                />
+              </div>
+
+              {/* Product Details */}
+              <div
+                className={`flex-1 text-center md:text-${
+                  index % 2 === 1 ? "right" : "left"
+                }`}
+              >
+                <h3
+                  style={{
+                    fontSize: "1.6rem",
+                    fontWeight: 700,
+                    color: "#1f2937",
+                    letterSpacing: "0.01em",
+                    fontFamily:
+                      'Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+                  }}
+                >
+                  {product.name}
+                </h3>
+                <p className="text-sm text-gray-600 mb-2">{product.subtitle}</p>
+                <div className="relative inline-block mx-auto md:mx-0 mb-1">
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 h-[70%] w-1 rounded-full bg-gradient-to-b from-emerald-400 to-emerald-600 hidden sm:block" />
+                  <div
+                    className="text-gray-700 max-w-[52ch] pl-4 sm:pl-5 line-clamp-2"
+                    style={{
+                      fontFamily: 'Georgia, "Times New Roman", ui-serif, Charter, serif',
+                    }}
+                  >
+                    {product.description}
+                  </div>
+                </div>
+                <div className={`mt-2 flex flex-col sm:flex-row items-center justify-center md:${ index % 2 === 1 ?"justify-end":"justify-start"}   gap-2`}>
+                  <button
+                    className="bg-[#22c55e] hover:bg-[#16a34a] text-white text-sm px-4 py-2 md:px-6 md:py-2.5 w-auto rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToCart({
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                      });
+                    }}
+                  >
+                    Add to Cart
+                  </button>
+                  <div className="text-lg sm:text-xl font-bold text-gray-900">
+                    ₹{product.price}
+                    <span className="text-base text-orange-500 line-through ml-2">
+                      ₹{product.originalPrice}
                     </span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        ))}
+
+        </div> 
+         {selectedProduct && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-8 relative">
+              <button
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-3xl font-bold"
+                onClick={closeModal}
+              >
+                &times;
+              </button>
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="relative w-40 md:w-52 flex-shrink-0">
+                  <img
+                    src="/oi.png"
+                    alt=""
+                    className="absolute -top-2 -left-2 w-28 opacity-90 pointer-events-none -rotate-3 z-0"
+                  />
+                  <img
+                    src={selectedProduct.image}
+                    alt={selectedProduct.name}
+                    className="relative z-10 w-full h-auto object-contain rounded-xl drop-shadow-lg"
+                  />
+                </div>
+                <div className="flex-1 text-left">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                    {selectedProduct.name}
+                  </h2>
+                  <p className="text-gray-500 mb-3">{selectedProduct.subtitle}</p>
+                  <p className="text-gray-700 mb-4">{selectedProduct.description}</p>
+                  <div className="text-2xl font-bold text-gray-900 mb-4">
+                    ₹{selectedProduct.price}
+                    <span className="text-lg text-orange-500 line-through ml-3">
+                      ₹{selectedProduct.originalPrice}
+                    </span>
+                  </div>
+                  <button
+                    className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-xl font-semibold transition-all duration-300 shadow hover:shadow-lg"
+                    onClick={() => {
+                      addToCart(selectedProduct);
+                      closeModal();
+                    }}
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      
+
       </section>
 
+      
       {/* Why Choose Section */}
       <section
         className="py-12 px-4 relative overflow-hidden border-t border-b border-gray-200/40"

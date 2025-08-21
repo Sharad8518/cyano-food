@@ -947,7 +947,7 @@ const HomePage = () => {
                 </div>
                 <div className="contact-details">
                   <h4>Email Us</h4>
-                  <p>mail@cyanoindia.com</p>
+                  <p>mail.cyano@gmail.com</p>
                 </div>
               </div>
             </div>
