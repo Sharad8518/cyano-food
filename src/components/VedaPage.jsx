@@ -10,10 +10,12 @@ import {
   Star,
   ArrowRight,
   ShoppingBag,
+  Menu, X
 } from "lucide-react";
 
 const VedaPage = () => {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
   const { addToCart, getCartItemCount } = useCart();
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -23,6 +25,11 @@ const VedaPage = () => {
     const raf = requestAnimationFrame(() => setIsLoaded(true));
     return () => cancelAnimationFrame(raf);
   }, []);
+
+    const navItems = [
+    { label: "Cyano Crennis", to: "/crennis" },
+    { label: "Home", to: "/" },
+  ];
 
   return (
     <div
@@ -40,74 +47,97 @@ const VedaPage = () => {
     >
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100/60 shadow-[0_1px_0_0_rgba(0,0,0,0.03)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => navigate(-1)}
-                className="group btn-green-ghost btn-compact"
-                style={{
-                  fontFamily:
-                    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                }}
-              >
-                <ArrowLeft className="h-5 w-5 transition-transform group-hover:-translate-x-0.5" />
-                <span>Back</span>
-              </button>
-              <div className="h-6 w-px bg-gray-200/70"></div>
-              <Link
-                to="/"
-                className="text-lg font-semibold tracking-tight text-gray-800/90 hover:text-emerald-700 transition-colors"
-                style={{
-                  fontFamily:
-                    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                }}
-              >
-                Cyano Foods
-              </Link>
-            </div>
-            <div className="flex items-center space-x-6">
-              <Link
-                to="/crennis"
-                className="btn-green-ghost btn-compact"
-                style={{
-                  fontFamily:
-                    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                }}
-              >
-                Cyano Crennis
-              </Link>
-              <Link
-                to="/"
-                className="btn-green-ghost btn-compact"
-                style={{
-                  fontFamily:
-                    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                }}
-              >
-                Home
-              </Link>
-
-              {/* Cart Button */}
-              <button
-                onClick={() => setCartOpen(true)}
-                className="relative btn-green-ghost btn-compact"
-                style={{
-                  fontFamily:
-                    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                }}
-              >
-                <ShoppingBag className="h-5 w-5" />
-                {getCartItemCount() > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
-                    {getCartItemCount() > 9 ? "9+" : getCartItemCount()}
-                  </span>
-                )}
-              </button>
-            </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center py-4">
+          {/* Left Section */}
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={() => navigate(-1)}
+              className="group btn-green-ghost btn-compact"
+            >
+              <ArrowLeft className="h-5 w-5 transition-transform group-hover:-translate-x-0.5" />
+              <span>Back</span>
+            </button>
+            <div className="h-6 w-px bg-gray-200/70"></div>
+            <Link
+              to="/"
+              className="text-lg font-semibold tracking-tight text-gray-800/90 hover:text-emerald-700 transition-colors"
+            >
+              Cyano Foods
+            </Link>
           </div>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center space-x-6">
+            {navItems.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="btn-green-ghost btn-compact"
+              >
+                {item.label}
+              </Link>
+            ))}
+
+            {/* Cart Button */}
+            <button
+              onClick={() => setCartOpen(true)}
+              className="relative btn-green-ghost btn-compact"
+            >
+              <ShoppingBag className="h-5 w-5" />
+              {getCartItemCount() > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
+                  {getCartItemCount() > 9 ? "9+" : getCartItemCount()}
+                </span>
+              )}
+            </button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden btn-green-ghost btn-compact"
+          >
+            {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
-      </header>
+      </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={`md:hidden bg-white/95 backdrop-blur-md border-t border-gray-200 shadow-md px-4 py-4 space-y-4 transform transition-all duration-300 ${
+          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+        }`}
+      >
+        {navItems.map((item) => (
+          <Link
+            key={item.to}
+            to={item.to}
+            className="block w-full text-left btn-green-ghost"
+            onClick={() => setMenuOpen(false)}
+          >
+            {item.label}
+          </Link>
+        ))}
+
+        {/* Cart in Mobile Menu */}
+        <button
+          onClick={() => {
+            setCartOpen(true);
+            setMenuOpen(false);
+          }}
+          className="relative block w-full text-left btn-green-ghost"
+        >
+          <ShoppingBag className="h-5 w-5 inline mr-2" />
+          Cart
+          {getCartItemCount() > 0 && (
+            <span className="ml-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 inline-flex items-center justify-center font-medium">
+              {getCartItemCount() > 9 ? "9+" : getCartItemCount()}
+            </span>
+          )}
+        </button>
+      </div>
+    </header>
 
       {/* Hero Section */}
       <section

@@ -56,6 +56,7 @@ const ScrollToTop = () => {
 
 const HomePage = () => {
   const [activeSection, setActiveSection] = useState("hero");
+  const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const { getCartItemCount } = useCart();
@@ -108,69 +109,77 @@ const HomePage = () => {
   return (
     <div className="landing-page">
       {/* Navigation Header */}
-      <header
-        className={`header ${isScrolled ? "scrolled" : ""} transparent-header`}
-      >
-        <div className="header-container">
-          <div className="logo-section">
-            <img src="/1.png" alt="Cyano Foods" className="main-logo" />
-          </div>
-          <nav className="nav-menu">
-            <button
-              onClick={() => {
-                scrollToSection("hero");
-              }}
-              className="nav-link"
-            >
-              Home
-            </button>
-            <button
-              onClick={() => {
-                scrollToSection("about");
-              }}
-              className="nav-link"
-            >
-              About
-            </button>
-            <button
-              onClick={() => {
-                scrollToSection("founders");
-              }}
-              className="nav-link"
-            >
-              Founders
-            </button>
-            <Link to="/veda" className="nav-link">
-              Cyano Veda
-            </Link>
-            <Link to="/crennis" className="nav-link">
-              Cyano Crennis
-            </Link>
-            <button
-              onClick={() => {
-                navigateToSpirulina();
-              }}
-              className="nav-link"
-            >
-              What is Spirulina
-            </button>
+    <header className="w-full shadow-md bg-white fixed top-0 left-0 z-50">
+  <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+    {/* Logo Left */}
+    <div className="flex-shrink-0">
+      <img src="/1.png" alt="Cyano Foods" className="h-10 md:h-12" />
+    </div>
 
-            {/* Cart Button */}
-            <button
-              onClick={() => setCartOpen(true)}
-              className="nav-link relative"
-            >
-              <ShoppingBag className="h-5 w-5" />
-              {getCartItemCount() > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
-                  {getCartItemCount() > 9 ? "9+" : getCartItemCount()}
-                </span>
-              )}
-            </button>
-            {/* Intentionally removed Contact and Orders to keep header clean */}
-          </nav>
-        </div>
-      </header>
+    {/* Menu Center (hidden on mobile) */}
+    <nav className="hidden md:flex flex-1 justify-center space-x-6">
+      <button onClick={() => scrollToSection("hero")} className="nav-link">
+        Home
+      </button>
+      <button onClick={() => scrollToSection("about")} className="nav-link">
+        About
+      </button>
+      <button onClick={() => scrollToSection("founders")} className="nav-link">
+        Founders
+      </button>
+      <Link to="/veda" className="nav-link">Cyano Veda</Link>
+      <Link to="/crennis" className="nav-link">Cyano Crennis</Link>
+      <button onClick={navigateToSpirulina} className="nav-link">
+        What is Spirulina
+      </button>
+    </nav>
+
+    {/* Cart + Mobile Menu Toggle */}
+    <div className="flex items-center space-x-4">
+      {/* Cart */}
+      <button onClick={() => setCartOpen(true)} className="relative">
+        <ShoppingBag className="h-6 w-6" style={{color:"#0b6b0b"}}/>
+        {getCartItemCount() > 0 && (
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
+            {getCartItemCount() > 9 ? "9+" : getCartItemCount()}
+          </span>
+        )}
+      </button>
+
+      {/* Mobile Hamburger */}
+      <button
+        onClick={() => setMenuOpen(!menuOpen)}
+        className="md:hidden focus:outline-none"
+      >
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  {/* Mobile Dropdown Menu */}
+  {menuOpen && (
+    <div className="md:hidden bg-white shadow-md px-6 py-4 space-y-4">
+      <button onClick={() => scrollToSection("hero")} className="block w-full text-left" style={{color:"#0F6D0F"}}>Home</button>
+      <button onClick={() => scrollToSection("about")} className="block w-full text-left" style={{color:"#0F6D0F"}}>About</button>
+      <button onClick={() => scrollToSection("founders")} className="block w-full text-left" style={{color:"#0F6D0F"}}>Founders</button>
+      <Link to="/veda" className="block w-full text-left" style={{color:"#0F6D0F"}}>Cyano Veda</Link>
+      <Link to="/crennis" className="block w-full text-left" style={{color:"#0F6D0F"}}>Cyano Crennis</Link>
+      <button onClick={navigateToSpirulina} className="block w-full text-left" style={{color:"#0F6D0F"}}>What is Spirulina</button>
+    </div>
+  )}
+</header>
 
       {/* Hero Section */}
       <section id="hero" className="hero-section">
@@ -918,7 +927,7 @@ const HomePage = () => {
                 </div>
                 <div className="contact-details">
                   <h4>Visit Us</h4>
-                  <p>123 Green Street, Eco City, EC 12345</p>
+                  <p>LOWER TIPRA BADDI - 174103, DIST-SOLAN-HIMACHAL PRADESH,INDIA</p>
                 </div>
               </div>
 
@@ -928,7 +937,7 @@ const HomePage = () => {
                 </div>
                 <div className="contact-details">
                   <h4>Call Us</h4>
-                  <p>+1 (555) 123-4567</p>
+                  <p>+91 89249456787</p>
                 </div>
               </div>
 
@@ -938,7 +947,7 @@ const HomePage = () => {
                 </div>
                 <div className="contact-details">
                   <h4>Email Us</h4>
-                  <p>hello@cyanoindia.com</p>
+                  <p>mail@cyanoindia.com</p>
                 </div>
               </div>
             </div>
