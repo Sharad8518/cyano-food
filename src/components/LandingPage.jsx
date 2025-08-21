@@ -927,7 +927,7 @@ const HomePage = () => {
                 </div>
                 <div className="contact-details">
                   <h4>Visit Us</h4>
-                  <p>LOWER TIPRA BADDI - 174103, DIST-SOLAN-HIMACHAL PRADESH,INDIA</p>
+                  <p>LOWER TIPRA BADDI - 174103, DIST-SOLAN-HIMACHAL PRADESH, INDIA</p>
                 </div>
               </div>
 
