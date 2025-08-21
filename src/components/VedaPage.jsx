@@ -391,7 +391,7 @@ const VedaPage = () => {
                 marginBottom: "0.5rem",
               }}
             >
-              Our Agricultural Solutions
+               Our Health Products
             </h2>
             <p
               className="text-gray-600 text-base md:text-lg leading-relaxed inline-block max-w-2xl mb-6"
@@ -793,12 +793,12 @@ const VedaPage = () => {
 
               {/* Pricing */}
               <div className="mb-3 md:mb-4">
-                <div className="flex items-baseline justify-center gap-1">
+                {/* <div className="flex items-baseline justify-center gap-1">
                   <span className="text-xl font-bold text-gray-900">
                     ₹1,499
                   </span>
                   <span className="text-xs text-gray-500">per bottle</span>
-                </div>
+                </div> */}
               </div>
 
               <button className="w-full bg-[#22c55e] hover:bg-[#16a34a] text-white py-2 px-4 rounded-xl font-semibold text-sm transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
@@ -836,12 +836,12 @@ const VedaPage = () => {
 
               {/* Pricing */}
               <div className="mb-4 md:mb-5">
-                <div className="flex items-baseline justify-center gap-1">
+                {/* <div className="flex items-baseline justify-center gap-1">
                   <span className="text-xl md:text-2xl font-bold text-white">
                     ₹1,299
                   </span>
                   <span className="text-xs text-gray-400">per bottle</span>
-                </div>
+                </div> */}
               </div>
 
               <button className="w-full bg-[#22c55e] hover:bg-[#16a34a] text-white py-2 px-4 rounded-xl font-semibold text-sm transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
@@ -873,12 +873,12 @@ const VedaPage = () => {
 
               {/* Pricing */}
               <div className="mb-3 md:mb-4">
-                <div className="flex items-baseline justify-center gap-1">
+                {/* <div className="flex items-baseline justify-center gap-1">
                   <span className="text-xl font-bold text-gray-900">
                     ₹1,799
                   </span>
                   <span className="text-xs text-gray-500">per bottle</span>
-                </div>
+                </div> */}
               </div>
 
               <button className="w-full bg-[#22c55e] hover:bg-[#16a34a] text-white py-2 px-4 rounded-xl font-semibold text-sm transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
